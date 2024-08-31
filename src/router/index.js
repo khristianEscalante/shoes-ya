@@ -12,35 +12,64 @@ const router = createRouter({
         {
           path:'/',
           name:'inicio',
-          component:()=> import('@/views/HomeView.vue')
+          component:()=> import('@/views/Client/HomeView.vue')
         },
         {
           path:'/productos',
           name:'productos',
-          component:()=>import('@/views/MenuView.vue')
+          component:()=>import('@/views/Client/MenuView.vue')
         },
         {
           path:'/contacto',
           name:'contacto',
-          component:()=>import('@/views/ContactView.vue')
+          component:()=>import('@/views/Client/ContactView.vue')
         },
         {
-          path:'/detalle',
+          path:'/detalle/:id',
           name:'detalle',
-          component:()=>import('@/views/DetalleView.vue')
+          component:()=>import('@/views/Client/DetalleView.vue')
         },
         {
           path:'/carrito',
           name:'carrito',
-          component:()=>import('@/views/CartView.vue')
+          component:()=>import('@/views/Client/CartView.vue')
         },
         {
           path:'/perfil',
           name:'perfil',
-          component:()=>import('@/views/ProfileView.vue')
+          component:()=>import('@/views/Client/ProfileView.vue')
         }
       ]
     },
+    {
+      path:'/auth',
+      name:'auth',
+      component:()=>import('@/layouts/AuthLayouts.vue'),
+      children:[
+        {
+          path:'/login',
+          name:'login',
+          component:()=>import('@/views/Client/LoginView.vue')
+        },
+      ]
+    },
+    {
+      path:'/admin',
+      name:'admin',
+      component:()=>import('@/layouts/AdminLayouts.vue'),
+      children:[
+        {
+          path:'',
+          name:'productosAdmin',
+          component:()=>import('@/views/Admin/ProductAdmin.vue')
+        },
+        {
+          path:'categoria',
+          name:'categoriaAdmin',
+          component:()=>import('@/views/Admin/CategoriaAdmin.vue')
+        }
+      ]
+    }
   ]
 })
 

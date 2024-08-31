@@ -9,7 +9,7 @@
                 <p class="mb-8 leading-relaxed w-full md:w-9/12">¡Ven y descubre nuestra nueva colección! Desde los diseños más clásicos hasta las tendencias más modernas, tenemos el par perfecto para ti. Nuestros zapatos no solo complementan tu outfit, sino que lo elevan a un nivel superior de elegancia y confort. Porque mereces caminar con estilo, todos los días.</p>
                 <div class="flex justify-center">
                     <button
-                        class="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg">Ver productos</button>
+                        class="inline-flex text-white bg-green-700 border-0 py-2 px-6 focus:outline-none hover:bg-green-800 rounded text-lg">Ver productos</button>
                 </div>
             </div>
             <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">

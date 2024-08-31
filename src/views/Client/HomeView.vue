@@ -6,7 +6,7 @@
   </main>
 </template>
   <script setup>
-  import HomeSection from '../section/HomeSection.vue'
-  import TestimonioSection from '../section/TestimonioSection.vue'
+  import HomeSection from '../../section/HomeSection.vue'
+  import TestimonioSection from '../../section/TestimonioSection.vue'
   
   </script>
