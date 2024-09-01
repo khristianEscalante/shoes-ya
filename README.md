@@ -51,18 +51,6 @@ Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu entor
 
 Actualmente, el proyecto utiliza una API de testing generada a través de [Retool](https://retool.com/api-generator). Esta API sirve como un backend temporal para simular las funcionalidades de una tienda real. Más adelante, planeamos migrar a una API completamente personalizada y optimizada.
 
-## Contribuciones
-
-¡Las contribuciones son bienvenidas! Si deseas contribuir a este proyecto, por favor sigue estos pasos:
-
-1. Haz un fork del proyecto.
-2. Crea una nueva rama (`git checkout -b feature/nueva-caracteristica`).
-3. Realiza tus cambios y confirma los cambios (`git commit -m 'Añadir nueva característica'`).
-4. Sube tus cambios (`git push origin feature/nueva-caracteristica`).
-5. Abre un Pull Request.
-
-## Enlace al repositorio
-
 Puedes encontrar el código fuente de este proyecto en el siguiente enlace:
 
 [Repositorio en GitHub - Shoes-ya](https://github.com/khristianEscalante/shoes-ya)
