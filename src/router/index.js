@@ -33,40 +33,6 @@ const router = createRouter({
           path:'/carrito',
           name:'carrito',
           component:()=>import('@/views/Client/CartView.vue')
-        },
-        {
-          path:'/perfil',
-          name:'perfil',
-          component:()=>import('@/views/Client/ProfileView.vue')
-        }
-      ]
-    },
-    {
-      path:'/auth',
-      name:'auth',
-      component:()=>import('@/layouts/AuthLayouts.vue'),
-      children:[
-        {
-          path:'/login',
-          name:'login',
-          component:()=>import('@/views/Client/LoginView.vue')
-        },
-      ]
-    },
-    {
-      path:'/admin',
-      name:'admin',
-      component:()=>import('@/layouts/AdminLayouts.vue'),
-      children:[
-        {
-          path:'',
-          name:'productosAdmin',
-          component:()=>import('@/views/Admin/ProductAdmin.vue')
-        },
-        {
-          path:'categoria',
-          name:'categoriaAdmin',
-          component:()=>import('@/views/Admin/CategoriaAdmin.vue')
         }
       ]
     }
