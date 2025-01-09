@@ -11,9 +11,9 @@
                     <button
                         v-for="category in categories"
                         :key="category.id"
-                        @click="filterByCategory(category.category)"
-                        class="bg-gray-900 text-white py-2 px-4 rounded-md hover:bg-green-700">
-                        {{ category.category }}
+                        @click="filterByCategory(category.id)"
+                        :class="selectedCategory ==category.id ?'bg-green-700 text-white py-2 px-4 rounded-md':'bg-gray-900 text-white py-2 px-4 rounded-md hover:bg-green-700'">
+                        {{ category.name }}
                     </button>
                 </div>
 
@@ -26,9 +26,9 @@
                                 :src="product.image">
                         </router-link>
                         <div class="mt-4">
-                            <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">{{ product.category }}</h3>
-                            <h2 class="text-gray-900 title-font text-lg font-medium cursor-pointer">{{ product.product }}</h2>
-                            <p class="mt-1">${{ product.price }}</p>
+                            <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">{{ product.category.name }}</h3>
+                            <h2 class="text-gray-900 title-font text-lg font-medium cursor-pointer">{{ product.name }}</h2>
+                            <p class="mt-1">${{ product.pricing }}</p>
                             <button @click="addCart(product)"
                                 class="bg-green-700 font-semibold hover:bg-green-800 py-3 text-sm text-white uppercase w-full rounded-lg my-2">Agregar
                             </button>
@@ -61,6 +61,8 @@ const getCategories= async()=>{
     try {
         const response= await serviceCategory.getAll();
         categories.value= response;
+        console.log(response);
+        
     } catch (error) {
         console.error(error);    
     }
@@ -86,7 +88,7 @@ const filteredProducts = computed(() => {
     if (!selectedCategory.value) {
         return listProducts.value;
     }
-    return listProducts.value.filter(product => product.category === selectedCategory.value);
+    return listProducts.value.filter(product => product.category_id === selectedCategory.value);
 });
 
 onMounted(() => {

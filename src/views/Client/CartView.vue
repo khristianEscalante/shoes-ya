@@ -13,8 +13,8 @@
             <div class="order-1 md:order-1 flex items-center col-span-2 md:col-span-2">
               <img :src="item.image" class="w-16 h-16 rounded-full" />
               <div class="flex flex-col ml-3">
-                <span class="md:text-md font-medium">{{ item.product }}</span>
-                <span class="text-xs font-light text-gray-400">{{ item.category }}</span>
+                <span class="md:text-md font-medium">{{ item.name }}</span>
+                <span class="text-xs font-light text-gray-400">{{ item.category.name }}</span>
               </div>
             </div>
   
@@ -42,7 +42,7 @@
   
             <!-- Precio del producto -->
             <div class="order-2 md:order-3 text-center col-span-1 md:col-span-1">
-              <span class="text-sm font-medium">${{ (item.price * item.quantity).toFixed(2) }}</span>
+              <span class="text-sm font-medium">${{ (item.pricing* item.quantity).toFixed(2) }}</span>
             </div>
   
             <!-- Botón de eliminar -->
@@ -66,7 +66,7 @@
           </div>
         </div>
         <!-- Resumen de Pedido -->
-        <div id="summary" class="w-full h-screen px-8 py-1 bg-gray-100 rounded-r-lg">
+        <div id="summary" class="w-full h-screen px-8 py-1 bg-gray-100 rounded-r-lg relative">
           <h1 class="font-semibold text-2xl border-b py-4">Resumen de compra</h1>
           <div class="flex justify-between mt-10 mb-5">
             <span class="font-semibold text-sm uppercase">Items </span>
@@ -135,7 +135,7 @@
             </div>
           </form>
           <!-- Mensaje de éxito -->
-          <div v-if="successMessage" class="mt-4 p-2 text-green-800 bg-green-100 border border-green-200 rounded">
+          <div v-if="successMessage" class="absolute top-10 right-10 mt-4 p-2 text-green-800 bg-green-100 border border-green-200 rounded">
             {{ successMessage }}
           </div>
         </div>

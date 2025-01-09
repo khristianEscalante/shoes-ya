@@ -44,7 +44,7 @@ export const useCartStore = defineStore('cartStore', {
     getters: {
         cartTotal() {
             // Calcular el total del carrito
-            return this.cart.reduce((total, item) => total + item.price * item.quantity, 0);
+            return this.cart.reduce((total, item) => total + item.pricing * item.quantity, 0);
         },
         cartItemCount() {
             // Calcular el número total de productos en el carrito

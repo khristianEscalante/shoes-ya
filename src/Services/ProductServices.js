@@ -2,12 +2,11 @@ import axios from "axios";
 
 class ProductServices{
     
-    urlBase='https://retoolapi.dev/bO4vQh'
+    urlBase = import.meta.env.VITE_URL_API
 
     async getAll(){
         try {
             const response= await axios.get(`${this.urlBase}/products`)
-            console.log(response);
             return response.data
         } catch (error) {
             console.error(error);
@@ -17,7 +16,7 @@ class ProductServices{
     async getById(id){
         try {
             const response= await axios.get(`${this.urlBase}/products/${id}`)
-            return response
+            return response.data
         } catch (error) {
             console.error(error);
         }

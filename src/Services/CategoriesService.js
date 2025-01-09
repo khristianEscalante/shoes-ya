@@ -2,11 +2,11 @@ import axios from "axios";
 
 class CategoriesServices{
 
-    urlBase='https://retoolapi.dev/tutpqt'
+    urlBase = import.meta.env.VITE_URL_API
 
    async getAll(){
         try {
-            const response= await axios.get(`${this.urlBase}/category`)
+            const response= await axios.get(`${this.urlBase}/categories`)
             return response.data 
         } catch (error) {
             console.error(error);
