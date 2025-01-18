@@ -7,7 +7,7 @@
           <div
             v-for="item in store.cart"
             :key="item.id"
-            class="grid grid-cols-3 md:grid-cols-6 gap-4 items-center mt-6 pt-6 border-b"
+            class="item-cart grid grid-cols-3 md:grid-cols-6 gap-4 items-center mt-6 pt-6 border-b"
           >
             <!-- Imagen y detalles del producto -->
             <div class="order-1 md:order-1 flex items-center col-span-2 md:col-span-2">

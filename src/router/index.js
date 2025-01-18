@@ -35,6 +35,18 @@ const router = createRouter({
           component:()=>import('@/views/Client/CartView.vue')
         }
       ]
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component:()=>import('@/layouts/adminLayout.vue'),
+      children:[
+        {
+          path: 'categorias',
+          name:'categorias',
+          component:()=>import('@/views/admin/CategoryView.vue')
+        }
+      ]
     }
   ]
 })
