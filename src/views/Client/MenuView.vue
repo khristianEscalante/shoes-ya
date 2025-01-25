@@ -61,8 +61,6 @@ const getCategories= async()=>{
     try {
         const response= await serviceCategory.getAll();
         categories.value= response;
-        console.log(response);
-        
     } catch (error) {
         console.error(error);    
     }
@@ -71,8 +69,6 @@ const getCategories= async()=>{
 const getAll = async () => {
     try {
         const response = await service.getAll();
-        console.log(response);
-
         listProducts.value = response;
 
     } catch (error) {

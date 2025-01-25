@@ -16,9 +16,9 @@
           </div>
           <div class="p-2 w-1/2">
             <div class="relative">
-              <label for="email" class="leading-7 text-sm text-gray-600">Correo Electrónico</label>
-              <input type="email" id="email" v-model="form.email" @input="clearError('email')" :class="inputClass('email')">
-              <p v-if="errors.email" class="text-red-500 text-xs mt-1">{{ errors.email }}</p>
+              <label for="mail" class="leading-7 text-sm text-gray-600">Correo Electrónico</label>
+              <input type="mail" id="mail" v-model="form.mail" @input="clearError('mail')" :class="inputClass('mail')">
+              <p v-if="errors.mail" class="text-red-500 text-xs mt-1">{{ errors.mail }}</p>
             </div>
           </div>
           <div class="p-2 w-full">
@@ -45,11 +45,12 @@
 
 <script setup>
 import { ref } from 'vue';
+import ContactServices from '@/Services/ContactServices.js'
 
 // Estado inicial del formulario
 const form = ref({
   name: '',
-  email: '',
+  mail: '',
   message: ''
 });
 
@@ -65,10 +66,10 @@ const validateForm = () => {
   if (!form.value.name) {
     errors.value.name = 'El nombre es requerido.';
   }
-  if (!form.value.email) {
-    errors.value.email = 'El correo electrónico es requerido.';
-  } else if (!/\S+@\S+\.\S+/.test(form.value.email)) {
-    errors.value.email = 'El correo electrónico no es válido.';
+  if (!form.value.mail) {
+    errors.value.mail = 'El correo electrónico es requerido.';
+  } else if (!/\S+@\S+\.\S+/.test(form.value.mail)) {
+    errors.value.mail = 'El correo electrónico no es válido.';
   }
   if (!form.value.message) {
     errors.value.message = 'El mensaje es requerido.';
@@ -87,11 +88,12 @@ const handleSubmit = async () => {
   successMessage.value = '';
 
   try {
-    // Simulación de envío de formulario
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    successMessage.value = '¡Mensaje enviado exitosamente!';
-    form.value = { name: '', email: '', message: '' }; // Resetear el formulario
+    const response = await ContactServices.create(form.value)
+    if(response){
+      console.log(response)
+      successMessage.value = '¡Mensaje enviado exitosamente!';
+      form.value = { name: '', mail: '', message: '' }; // Resetear el formulario
+    }
   } catch (error) {
     console.error('Error al enviar el mensaje:', error);
   } finally {

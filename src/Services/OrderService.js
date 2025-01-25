@@ -1,6 +1,6 @@
 import axios from "axios";
 
-class ProductServices{
+class OrderServices {
     
     urlBase = import.meta.env.VITE_URL_API
 
@@ -15,4 +15,4 @@ class ProductServices{
 
 }
 
-export default ProductServices;
+export default new OrderServices();
