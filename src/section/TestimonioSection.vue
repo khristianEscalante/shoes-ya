@@ -46,7 +46,6 @@
         </div>
       </div>
     </div>
-    <button class="flex mx-auto mt-16 text-white bg-green-700 border-0 py-2 px-8 focus:outline-none hover:bg-green-800 rounded text-lg">Button</button>
   </div>
 </section>
 </template>
