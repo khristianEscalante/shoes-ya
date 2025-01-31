@@ -45,6 +45,9 @@ const router = createRouter({
       path: "/admin",
       name: "admin",
       component: () => import("@/layouts/adminLayout.vue"),
+      meta: {
+        requiresAuth: true,
+      },
       children: [
         {
           path: "categorias",
@@ -62,7 +65,7 @@ const router = createRouter({
           component: () => import("@/views/admin/ContactosView.vue"),
         },
         {
-          path: "pedidos",
+          path: "",
           name: "pedidos",
           component: () => import("@/views/admin/PedidosView.vue"),
         },
@@ -74,6 +77,19 @@ const router = createRouter({
       ],
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      next("/login");
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

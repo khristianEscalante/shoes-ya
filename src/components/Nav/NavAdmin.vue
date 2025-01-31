@@ -24,11 +24,12 @@
             </div>
             <nav
                 class="hidden md:flex flex-col md:flex-row items-center text-base justify-center w-full md:w-auto bg-gray-900 p-5 md:p-0">
+                <router-link to="/admin" class="mr-5 hover:text-white cursor-pointer">Pedidos</router-link>
                 <router-link to="/admin/categorias" class="mr-5 hover:text-white cursor-pointer">Categorias</router-link>
                 <router-link to="/admin/productos" class="mr-5 hover:text-white cursor-pointer">Productos</router-link>
                 <router-link to="/admin/contactos" class="mr-5 hover:text-white cursor-pointer">Contacto</router-link>
-                <router-link to="/admin/pedidos" class="mr-5 hover:text-white cursor-pointer">Pedidos</router-link>
                 <router-link to="/admin/perfil" class="mr-5 hover:text-white cursor-pointer">Perfil</router-link>
+                <button @click="logout" class="mr-5 p-2 bg-green-700 rounded-md text-white hover:bg-green-800">Cerrar sesión</button>
             </nav>
         </div>
 
@@ -46,10 +47,16 @@
 
 <script setup>
 import { ref } from 'vue';
+import router from "@/router";
 const menuOpen = ref(false);
 
 const toggleMenu = () => {
     menuOpen.value = !menuOpen.value;
+};
+
+const logout = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
 };
 </script>
 

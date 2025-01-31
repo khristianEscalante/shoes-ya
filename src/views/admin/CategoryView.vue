@@ -1,68 +1,105 @@
 <template>
-  <div>
-    <div class="flex h-screen">
-      <div class="w-1/2 h-full p-2">
-        <h1 class="text-2xl font-bold mb-4">Listado de Categorias</h1>
-        <div class="grid grid-cols-3 gap-3">
-          <div
-            v-for="category in listCategories"
-            :key="category.id"
-            class="w-64 flex flex-col items-center border-gray-200 border p-4 rounded-lg"
-          >
-            <div class="flex-grow py-3">
-              <h2 class="text-gray-900 title-font font-medium">
-                {{ category.name }}
-              </h2>
-              <p class="text-gray-700 my-1">{{ category.description }}</p>
-            </div>
-            <div class="flex gap-3">
-              <button
-                @click="getByid(category.id)"
-                class="bg-green-300 text-white p-2 rounded-md"
-              >
-                Editar
-              </button>
-              <button
-                @click="deleteCategory(category.id)"
-                class="bg-red-300 text-white p-2 rounded-md"
-              >
-                Eliminar
-              </button>
+  <div class="min-h-screen bg-gray-50 p-6">
+    <div class="flex flex-col lg:flex-row gap-8">
+      <!-- Lista de Categorías -->
+      <div class="lg:w-3/5">
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h1 class="text-3xl font-bold text-gray-800 mb-6">
+            <i class="fas fa-tags mr-2"></i>Categorías
+          </h1>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            <div
+              v-for="category in listCategories"
+              :key="category.id"
+              class="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200"
+            >
+              <div class="p-5">
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">
+                  {{ category.name }}
+                </h2>
+                <p class="text-gray-600 text-sm mb-4 min-h-[60px]">
+                  {{ category.description }}
+                </p>
+                <div class="flex gap-2">
+                  <button
+                    @click="startEditing(category)"
+                    class="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition-colors duration-200 flex items-center justify-center"
+                  >
+                    <i class="fas fa-edit mr-2"></i>Editar
+                  </button>
+                  <button
+                    @click="deleteCategory(category.id)"
+                    class="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors duration-200 flex items-center justify-center"
+                  >
+                    <i class="fas fa-trash mr-2"></i>Eliminar
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="w-1/2 h-full p-3 bg-gray-100">
-        <h1 class="text-2xl font-bold mb-4">Agregar categorias</h1>
-        <div class="flex flex-col gap-3">
-          <p>Nombre</p>
-          <input
-            v-model="categoryData.name"
-            class="border p-2 border-gray-300 rounded-md w-full"
-            type="text"
-          />
-          <p>Descripción</p>
-          <textarea
-            v-model="categoryData.description"
-            class="border p-2 border-gray-300 rounded-md w-full"
-            cols="30"
-            rows="10"
-          ></textarea>
+
+      <!-- Formulario -->
+      <div class="lg:w-2/5">
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">
+              {{ isEditing ? 'Editar Categoría' : 'Nueva Categoría' }}
+            </h1>
+            <button 
+              v-if="isEditing"
+              @click="cancelEditing"
+              class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors duration-200 flex items-center justify-center"
+            >
+              <i class="fas fa-times mr-2"></i>Cancelar
+            </button>
+          </div>
+          
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">
+                Nombre
+              </label>
+              <input
+                v-model="formData.name"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200"
+                type="text"
+                placeholder="Nombre de la categoría"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">
+                Descripción
+              </label>
+              <textarea
+                v-model="formData.description"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200"
+                rows="6"
+                placeholder="Describe la categoría"
+              ></textarea>
+            </div>
+
+            <div class="flex gap-3">
+              <button
+                v-if="!isEditing"
+                @click="create()"
+                class="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition-colors duration-200 font-medium text-lg flex items-center justify-center"
+              >
+                <i class="fas fa-plus mr-2"></i>Crear Categoría
+              </button>
+              <button
+                v-else
+                @click="updateCategory"
+                class="w-full py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-200 font-medium text-lg flex items-center justify-center"
+              >
+                <i class="fas fa-save mr-2"></i>Guardar Cambios
+              </button>
+            </div>
+          </div>
         </div>
-        <button
-          v-if="categoryData.id === 0"
-          @click="create()"
-          class="p-3 w-full bg-green-700 hover:bg-green-800 text-white rounded-lg my-3 text-lg"
-        >
-          Guardar categoria
-        </button>
-        <button
-          v-else
-          @click="updateCategory"
-          class="p-3 w-full bg-green-500 text-white rounded-lg my-3"
-        >
-          Editar categoria
-        </button>
       </div>
     </div>
   </div>
@@ -71,72 +108,86 @@
 <script setup>
 import CategoriesServices from "@/Services/CategoriesService";
 import { onMounted, ref } from "vue";
+import { useToast } from 'vue-toast-notification';
 
+const $toast = useToast();
 const service = new CategoriesServices();
+const listCategories = ref([]);
+const isEditing = ref(false);
 
-const categoryData = ref({
-  id: 0,
+const formData = ref({
+  id: null,
   name: "",
-  description: "",
+  description: ""
 });
 
-const listCategories = ref([]);
+const resetForm = () => {
+  formData.value = {
+    id: null,
+    name: "",
+    description: ""
+  };
+  isEditing.value = false;
+};
+
+const startEditing = (category) => {
+  isEditing.value = true;
+  formData.value = { ...category };
+};
+
+const cancelEditing = () => {
+  resetForm();
+};
 
 const getCategories = async () => {
   try {
     const response = await service.getAll();
-    console.log(response);
     listCategories.value = response;
   } catch (error) {
-    console.log(error);
+    $toast.error('Error al cargar las categorías');
+    console.error(error);
   }
 };
 
 const create = async () => {
   try {
-    const response = await service.create(categoryData.value);
-    console.log(response);
-    getCategories();
+    const response = await service.create(formData.value);
+    if (response) {
+      $toast.success('Categoría creada exitosamente');
+      await getCategories();
+      resetForm();
+    }
   } catch (error) {
-    console.log(error);
+    $toast.error('Error al crear la categoría');
+    console.error(error);
+  }
+};
+
+const updateCategory = async () => {
+  try {
+    const { id, ...updateData } = formData.value;
+    const response = await service.update(id, updateData);
+    if (response) {
+      $toast.success('Categoría actualizada exitosamente');
+      await getCategories();
+      resetForm();
+    }
+  } catch (error) {
+    $toast.error('Error al actualizar la categoría');
+    console.error(error);
   }
 };
 
 const deleteCategory = async (id) => {
   try {
     const response = await service.delete(id);
-    console.log(response);
-    getCategories();
+    if (response) {
+      $toast.success('Categoría eliminada exitosamente');
+      await getCategories();
+    }
   } catch (error) {
-    console.log(error);
-  }
-};
-
-const getByid = async (id) => {
-  try {
-    const response = await service.getById(id);
-    categoryData.value.name = response.name;
-    categoryData.value.id = response.id;
-    categoryData.value.description = response.description;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const updateCategory = async () => {
-  try {
-    let data = {
-      name: categoryData.value.name,
-      description: categoryData.value.description,
-    };
-    const response = await service.update(categoryData.value.id, data);
-    console.log(response);
-    categoryData.value.id = 0;
-    getCategories();
-    categoryData.value.name = "";
-    categoryData.value.description = "";
-  } catch (error) {
-    console.log(error);
+    $toast.error('Error al eliminar la categoría');
+    console.error(error);
   }
 };
 
